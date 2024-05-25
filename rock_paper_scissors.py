@@ -1,5 +1,8 @@
 from random import randint
 from colorama import Fore, Back, Style
+win = 0
+lost = 0
+draw = 0
 again = ''
 while True:
     rock = 'Rock'
@@ -22,9 +25,6 @@ while True:
         computer_move = paper
     else:
         computer_move = scissors
-    win = 0
-    lost = 0
-    draw = 0
     if (player_move == rock  and computer_move == scissors) or \
         (player_move == paper and computer_move == rock) or \
         (player_move == scissors and computer_move == paper):
@@ -40,7 +40,7 @@ while True:
         (player_move == scissors and computer_move == rock):
         lost += 1
         print(f'{Fore.BLUE} The computer chose {Fore.BLUE + computer_move}\n{Fore.RED} You lost!')
-    print(f'Your score is {win} win {lost} lost {draw} draw games')
+    print(f'Your score is {win}, win {lost}, lost {draw} draw games')
     again = input(f'{Fore.WHITE} Type [any key] for YES to Play Again or [n] NO to quit: ')
     if again == 'n':
         break
