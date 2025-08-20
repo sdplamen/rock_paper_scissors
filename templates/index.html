@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock, Paper, Scissors</title>
+<!--    <script src="https://cdn.tailwindcss.com"></script>-->
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-3xl font-bold mb-6 text-gray-800">Rock, Paper, Scissors!</h1>
+        <p class="text-gray-500 text-sm mt-6">Select your move and click "Play Round" for a new game.</p>
+        <form method="post" class="mb-6">
+            {% csrf_token %}
+            <div class="flex flex-wrap justify-center gap-4 mb-6">
+                {% for radio in form.player_move %}
+                    <div class="flex items-center">
+                        {{ radio.tag }}
+                        <label for="{{ radio.id_for_label }}" class="ml-2">
+                            {{ radio.choice_label }}
+                        </label>
+                    </div>
+                {% endfor %}
+            </div>
+            <button type="submit">Play Round</button>
+        </form>
+
+        {% if computer_move %}
+            <div class="mt-4 text-xl">
+                <p class="text-gray-700">You chose: <span class="font-semibold text-blue-600">{{ player_move }}</span></p>
+                <p class="text-gray-700">Computer chose: <span class="font-semibold text-purple-600">{{ computer_move }}</span></p>
+            </div>
+            <div class="message mt-4
+                {% if result_message == 'You win!' %}win
+                {% elif result_message == 'You lost!' %}lost
+                {% else %}draw{% endif %}">
+                {{ result_message }}
+            </div>
+        {% endif %}
+
+        <div class="score-box mt-8">
+            <div class="score-item">
+                Wins: <span class="score-win">{{ win }}</span>
+            </div>
+            <div class="score-item">
+                Losses: <span class="score-lost">{{ lost }}</span>
+            </div>
+            <div class="score-item">
+                Draws: <span class="score-draw">{{ draw }}</span>
+            </div>
+        </div>
+    </div>
+    <script src="{% static 'game.js' %}"></script>
+</body>
+</html>
